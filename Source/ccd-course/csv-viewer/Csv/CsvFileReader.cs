@@ -1,28 +1,41 @@
 ﻿using csv_viewer.TabularData;
 
-namespace csv_viewer.Model;
+namespace csv_viewer.Csv;
 
 public class CsvFileReader
 {
+    /*
+     * Beinhält 2 Aufgaben:
+     * - Laden der Datei
+     * - Konvertieren der Inhalte in einen anderen Datentyp
+     * => 2 unterschiedliche Operationen ...
+     *
+     * Besser wäre es, nicht vom Dateinamen auszugehen, das
+     * reduziert die Testbarkeit.
+     */
     public TabularDataFile ReadFrom(string filename)
     {
         var rows = new List<TabularDataRow>();
-        var inhalt = File.ReadAllLines(filename);
+        var contentInRows = LoadFileAsRows(filename);
 
-        foreach (var zeile in inhalt)
+        foreach (var csvRow in contentInRows)
         {
-            var split = InEinzelwerteZerlegen(zeile);
+            var split = SplitIntoColumns(csvRow);
             rows.Add(new TabularDataRow(split));
         }
 
         var tabularDataFile = new TabularDataFile(rows.ToArray());
-        tabularDataFile.RemoveRowsWithInvalidLength();
 
         return tabularDataFile;
     }
 
-    private string[] InEinzelwerteZerlegen(string zeile)
+    private string[] SplitIntoColumns(string row)
     {
-        return zeile.Split(";");
+        return row.Split(";");
+    }
+
+    private string[] LoadFileAsRows(string filename)
+    {
+        return File.ReadAllLines(filename);
     }
 }

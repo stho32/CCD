@@ -5,22 +5,27 @@ namespace csv_viewer.Displays;
 public class TableDisplay
 {
     private readonly TabularDataFile _file;
+    private readonly int _pageSize;
     private List<int> _maxWidthsPerColumn;
     private bool _isPrepared = false;
-    private const int PageSize = 3;
 
-    public TableDisplay(TabularDataFile file)
+    public TableDisplay(TabularDataFile file, int pageSize)
     {
         _file = file;
+        _pageSize = pageSize;
     }
 
-    public int PageCount => (int)Math.Floor((decimal)FileLengthWithoutHeaderRow() / PageSize);
+    public int PageCount => CalculatePageCount();
 
-    private int FileLengthWithoutHeaderRow()
+    private int CalculatePageCount()
     {
-        return _file.Rows.Length - 1;
-    }
+        var fileLengthWithoutHeaderRow = _file.Rows.Length - 1;
+        var pageCountAsDecimal = (decimal)fileLengthWithoutHeaderRow / _pageSize;
+        var pageCountAsWholeNumber = (int)Math.Floor(pageCountAsDecimal);
 
+        return pageCountAsWholeNumber;
+    }
+    
     protected void PrepareDisplay()
     {
         var numberOfColumns = _file.NumberOfColumns();
@@ -58,9 +63,9 @@ public class TableDisplay
     private void DisplayPage(int page)
     {
         var firstDataRow = 1;
-        var startIndex = firstDataRow + page * PageSize;
+        var startIndex = firstDataRow + page * _pageSize;
 
-        for (var i = startIndex; i < startIndex + PageSize; i++)
+        for (var i = startIndex; i < startIndex + _pageSize; i++)
         {
             if (i > _file.Rows.Length - 1)
                 continue;

@@ -5,8 +5,7 @@ public class TextMenu
     private readonly List<MenuItem?> _menuItems = new();
     private bool _exitIsRequested = false;
 
-
-    public void AddOption(string name, string hotkey, Action action)
+    public void AddMenuItem(string name, string hotkey, Action action)
     {
         _menuItems.Add(new MenuItem(name, hotkey, action));
     }

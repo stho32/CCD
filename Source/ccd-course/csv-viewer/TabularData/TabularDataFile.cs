@@ -9,6 +9,7 @@ public class TabularDataFile
         Rows = rows;
     }
 
+    // Könnte ein Problem sein, weil das sonst-DTO keine Funktion enthalten sollte
     public int NumberOfColumns()
     {
         if (Rows.Length == 0)
@@ -17,18 +18,4 @@ public class TabularDataFile
         return Rows[0].Columns.Length;
     }
 
-    public void RemoveRowsWithInvalidLength()
-    {
-        var rows = new List<TabularDataRow>(Rows);
-        var numberOfColumns = NumberOfColumns();
-
-        for (var i = rows.Count - 1; i >= 0; i--)
-        {
-            var row = rows[i];
-            if (row.Columns.Length != numberOfColumns)
-                rows.RemoveAt(i);
-        }
-
-        Rows = rows.ToArray();
-    }
 }
