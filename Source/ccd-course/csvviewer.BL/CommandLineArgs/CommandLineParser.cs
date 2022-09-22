@@ -1,4 +1,4 @@
-﻿namespace csv_viewer.CommandLineArgs;
+﻿namespace csvviewer.BL.CommandLineArgs;
 
 public class CommandLineParser
 {

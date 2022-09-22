@@ -1,7 +1,7 @@
-﻿using csv_viewer.CommandLineArgs;
-using csv_viewer.Csv;
-using csv_viewer.Displays;
-using csv_viewer.Menus;
+﻿using csvviewer.BL.CommandLineArgs;
+using csvviewer.BL.Csv;
+using csvviewer.BL.Displays;
+using csvviewer.BL.Menus;
 
 var arguments = new CommandLineParser(@"C:\Projekte\CCD\Documentation\csv-viewer\example.csv", 3);
 

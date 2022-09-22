@@ -1,4 +1,4 @@
-﻿namespace csv_viewer.Menus;
+﻿namespace csvviewer.BL.Menus;
 
 public class MenuItem
 {

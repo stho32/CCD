@@ -1,6 +1,6 @@
-﻿using csv_viewer.TabularData;
+﻿using csvviewer.BL.TabularData;
 
-namespace csv_viewer.Displays;
+namespace csvviewer.BL.Displays;
 
 public class TableDisplay
 {
