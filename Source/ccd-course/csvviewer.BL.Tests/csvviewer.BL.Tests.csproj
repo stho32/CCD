@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="CommandLineArgs\" />
+    <Folder Include="TabularData\" />
   </ItemGroup>
 
 </Project>
