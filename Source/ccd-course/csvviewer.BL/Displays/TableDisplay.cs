@@ -4,12 +4,12 @@ namespace csvviewer.BL.Displays;
 
 public class TableDisplay
 {
-    private readonly TabularDataFile _file;
+    private readonly Table _file;
     private readonly int _pageSize;
     private List<int> _maxWidthsPerColumn;
     private bool _isPrepared = false;
 
-    public TableDisplay(TabularDataFile file, int pageSize)
+    public TableDisplay(Table file, int pageSize)
     {
         _file = file;
         _pageSize = pageSize;

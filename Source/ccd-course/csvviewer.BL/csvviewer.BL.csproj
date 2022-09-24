@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\csvviewer.Interfaces\csvviewer.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -2,20 +2,30 @@
 
 public class CommandLineParser
 {
-    public int PageSize { get; private set; }
-    public string Filename { get; private set; }
+    private readonly CommandLineOptions _defaultOptions;
 
-    public CommandLineParser(string defaultFilename, int defaultPageSize)
+    public CommandLineParser(CommandLineOptions defaultOptions)
     {
-        PageSize = defaultPageSize;
-        Filename = defaultFilename;
+        _defaultOptions = defaultOptions;
     }
 
-    public void Parse(string[] args)
+    public bool TryParse(string[] args, out CommandLineOptions result)
     {
+        result = _defaultOptions;
+        var filename = _defaultOptions.Filename;
+        var pageSize = _defaultOptions.PageSize;
+
+        if (args.Length > 0)
+            filename = args[0];
+
         if (args.Length > 1)
-            Filename = args[1];
-        if (args.Length > 2)
-            PageSize = int.Parse(args[2]);
+        {
+            if (!int.TryParse(args[1], out int pageSizeFromCommandLine))
+                return false;
+            pageSize = pageSizeFromCommandLine;
+        }
+
+        result = new CommandLineOptions(filename, pageSize);
+        return true;
     }
 }

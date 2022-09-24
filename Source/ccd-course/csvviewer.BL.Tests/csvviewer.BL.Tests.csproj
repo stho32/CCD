@@ -16,4 +16,8 @@
     <ProjectReference Include="..\csvviewer.BL\csvviewer.BL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CommandLineArgs\" />
+  </ItemGroup>
+
 </Project>

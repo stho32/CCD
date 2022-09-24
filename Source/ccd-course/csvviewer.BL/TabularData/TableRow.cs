@@ -1,10 +1,10 @@
 ﻿namespace csvviewer.BL.TabularData;
 
-public class TabularDataRow
+public class TableRow
 {
     public readonly string[] Columns;
 
-    public TabularDataRow(string[] columns)
+    public TableRow(string[] columns)
     {
         Columns = columns;
     }
