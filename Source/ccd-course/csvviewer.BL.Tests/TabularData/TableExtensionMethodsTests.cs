@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace csvviewer.BL.Tests.TabularData;
 
 [TestFixture]
-public class TableExtensionsTests
+public class TableExtensionMethodsTests
 {
     [Test]
     public void NumberOfColumns_ermittelt_die_Anzahl_der_Spalten_in_einem_Table()

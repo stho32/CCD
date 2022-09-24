@@ -19,7 +19,6 @@
   <ItemGroup>
     <Folder Include="CommandLineArgs\" />
     <Folder Include="Mocks\" />
-    <Folder Include="TabularData\" />
   </ItemGroup>
 
 </Project>

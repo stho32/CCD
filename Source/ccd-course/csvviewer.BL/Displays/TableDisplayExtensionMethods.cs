@@ -3,7 +3,7 @@ using csvviewer.Interfaces;
 
 namespace csvviewer.BL.Displays;
 
-public static class TableDisplayExtension
+public static class TableDisplayExtensionMethods
 {
     public static TextMenu CreateNavigationMenu(this TableDisplay tableDisplay, IInput input, IOutput output)
     {

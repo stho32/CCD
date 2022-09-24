@@ -1,6 +1,6 @@
 ﻿namespace csvviewer.BL.TabularData;
 
-public static class TableExtensions
+public static class TableExtensionMethods
 {
     public static int NumberOfColumns(this Table table)
     {
