@@ -1,14 +1,13 @@
 ﻿using csvviewer.BL.CommandLineArgs;
 using csvviewer.BL.Csv;
 using csvviewer.BL.Displays;
-using csvviewer.BL.Menus;
 using csvviewer.Interfaces;
 
 namespace csv_viewer;
 
 public static class Process
 {
-    public static void Run(string[] args, IOutput output, IFileSystem filesystem)
+    public static void Run(string[] args, IInput input, IOutput output, IFileSystem filesystem)
     {
         if (!TryParseCommandLineParameters(args, output, out var options))
             return;
@@ -17,48 +16,8 @@ public static class Process
         var table = content.ToTable(new CsvConverter());
         var tableDisplay = new TableDisplay(table, options.PageSize, output);
 
-        var page = 0;
-        var menu = new TextMenu();
-
-        tableDisplay.Display(page);
-
-        menu.AddMenuItem("F)irst page", "f", () =>
-        {
-            page = 0;
-
-            tableDisplay.Display(page);
-        });
-
-        menu.AddMenuItem("P)revious page", "p", () =>
-        {
-            if (page > 0)
-                page -= 1;
-
-            tableDisplay.Display(page);
-        });
-
-        menu.AddMenuItem("N)ext page", "n", () =>
-        {
-            if (page < tableDisplay.PageCount)
-                page += 1;
-
-            tableDisplay.Display(page);
-        });
-
-        menu.AddMenuItem("L)ast page", "l", () =>
-        {
-            page = tableDisplay.PageCount;
-
-            tableDisplay.Display(page);
-        });
-
-        menu.AddMenuItem("E)xit", "e", () =>
-        {
-            menu.Exit();
-        });
-
-        menu.Execute();
-
+        var navigationMenu = tableDisplay.CreateNavigationMenu(input, output);
+        navigationMenu.Execute();
     }
 
     private static bool TryParseCommandLineParameters(string[] args, IOutput output, out CommandLineOptions options)

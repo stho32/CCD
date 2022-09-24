@@ -1,9 +1,23 @@
-﻿namespace csvviewer.BL.Menus;
+﻿using csvviewer.Interfaces;
+
+namespace csvviewer.BL.Menus;
 
 public class TextMenu
 {
+    private readonly IInput _input;
+    private readonly IOutput _output;
+
     private readonly List<MenuItem?> _menuItems = new();
     private bool _exitIsRequested = false;
+
+    public TextMenu(
+        IInput input, 
+        IOutput output
+        )
+    {
+        _input = input;
+        _output = output;
+    }
 
     public void AddMenuItem(string name, string hotkey, Action action)
     {
@@ -23,8 +37,7 @@ public class TextMenu
 
     private MenuItem? GetUsersWish()
     {
-        var input = Console.ReadKey().KeyChar.ToString().ToLower();
-        Console.WriteLine();
+        var input = _input.GetNextKeyPressInLowercase();
 
         foreach (var item in _menuItems)
         {
@@ -38,8 +51,8 @@ public class TextMenu
     private void DisplayMenu()
     {
         var menu = _menuItems.Select(x => x?.Name).ToArray();
-        Console.WriteLine();
-        Console.Write(string.Join(", ", menu));
+        _output.WriteLine("");
+        _output.Write(string.Join(", ", menu));
     }
 
     public void Exit()
