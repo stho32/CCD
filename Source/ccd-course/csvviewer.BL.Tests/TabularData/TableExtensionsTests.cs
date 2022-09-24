@@ -15,4 +15,11 @@ public class TableExtensionsTests
 
         Assert.AreEqual(2, table.NumberOfColumns());
     }
+
+    [Test]
+    public void Wenn_ein_Table_keine_Zeilen_enthaelt_ist_die_Anzahl_der_Spalten_0()
+    {
+        var table = new Table(Array.Empty<TableRow>());
+        Assert.AreEqual(0, table.NumberOfColumns());
+    }
 }
