@@ -26,7 +26,8 @@ public class TableDisplay
         var pageCountAsDecimal = (decimal)fileLengthWithoutHeaderRow / _pageSize;
         var pageCountAsWholeNumber = (int)Math.Floor(pageCountAsDecimal);
 
-        return pageCountAsWholeNumber;
+        // +1 weil die Funktion PageCount und nicht MaximumPageIndex heißt...
+        return pageCountAsWholeNumber + 1;
     }
     
     protected void PrepareDisplay()
