@@ -15,7 +15,7 @@ public static class Process
 
         var content = filesystem.ReadFile(options.Filename);
         var table = content.ToTable(new CsvConverter());
-        var tableDisplay = new TableDisplay(table, options.PageSize);
+        var tableDisplay = new TableDisplay(table, options.PageSize, output);
 
         var page = 0;
         var menu = new TextMenu();

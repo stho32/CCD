@@ -1,25 +1,28 @@
 ﻿using csvviewer.BL.TabularData;
+using csvviewer.Interfaces;
 
 namespace csvviewer.BL.Displays;
 
 public class TableDisplay
 {
-    private readonly Table _file;
+    private readonly Table _table;
     private readonly int _pageSize;
+    private readonly IOutput _output;
     private List<int> _maxWidthsPerColumn;
     private bool _isPrepared = false;
 
-    public TableDisplay(Table file, int pageSize)
+    public TableDisplay(Table table, int pageSize, IOutput output)
     {
-        _file = file;
+        _table = table;
         _pageSize = pageSize;
+        _output = output;
     }
 
     public int PageCount => CalculatePageCount();
 
     private int CalculatePageCount()
     {
-        var fileLengthWithoutHeaderRow = _file.Rows.Length - 1;
+        var fileLengthWithoutHeaderRow = _table.Rows.Length - 1;
         var pageCountAsDecimal = (decimal)fileLengthWithoutHeaderRow / _pageSize;
         var pageCountAsWholeNumber = (int)Math.Floor(pageCountAsDecimal);
 
@@ -28,11 +31,11 @@ public class TableDisplay
     
     protected void PrepareDisplay()
     {
-        var numberOfColumns = _file.NumberOfColumns();
+        var numberOfColumns = _table.NumberOfColumns();
 
         InitMaxWidthsPerColumn(numberOfColumns);
 
-        foreach (var row in _file.Rows)
+        foreach (var row in _table.Rows)
         {
             for (int i = 0; i < numberOfColumns; i++)
             {
@@ -67,10 +70,10 @@ public class TableDisplay
 
         for (var i = startIndex; i < startIndex + _pageSize; i++)
         {
-            if (i > _file.Rows.Length - 1)
+            if (i > _table.Rows.Length - 1)
                 continue;
 
-            var row = _file.Rows[i];
+            var row = _table.Rows[i];
             DisplayRow(row.Columns);
         }
     }
@@ -81,14 +84,14 @@ public class TableDisplay
         {
             var column = columns[i];
             var columnPadded = column.PadRight(_maxWidthsPerColumn[i]);
-            Console.Write(columnPadded + divider);
+            _output.Write(columnPadded + divider);
         }
-        Console.WriteLine();
+        _output.WriteLine("");
     }
 
     private void DisplayHeader()
     {
-        DisplayRow(_file.Rows[0].Columns);
+        DisplayRow(_table.Rows[0].Columns);
         DisplayHeaderDivider();
     }
 
