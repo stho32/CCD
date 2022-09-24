@@ -1,4 +1,4 @@
-﻿using csvviewer.BL.TabularData;
+﻿using csvviewer.BL.Tables;
 using csvviewer.Interfaces;
 
 namespace csvviewer.BL.Displays;

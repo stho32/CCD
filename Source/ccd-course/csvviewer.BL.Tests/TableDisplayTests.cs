@@ -1,5 +1,5 @@
 ﻿using csvviewer.BL.Displays;
-using csvviewer.BL.TabularData;
+using csvviewer.BL.Tables;
 using csvviewer.BL.Tests.Mocks;
 using NUnit.Framework;
 

@@ -1,4 +1,4 @@
-﻿using csvviewer.BL.TabularData;
+﻿using csvviewer.BL.Tables;
 using NUnit.Framework;
 
 namespace csvviewer.BL.Tests.TabularData;

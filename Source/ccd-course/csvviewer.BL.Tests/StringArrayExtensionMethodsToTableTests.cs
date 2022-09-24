@@ -1,11 +1,11 @@
 ﻿using csvviewer.BL.Csv;
-using csvviewer.BL.TabularData;
+using csvviewer.BL.Tables;
 using NUnit.Framework;
 
 namespace csvviewer.BL.Tests;
 
 [TestFixture]
-public class StringArrayExtensionMethodsTabularDataFileTests
+public class StringArrayExtensionMethodsToTableTests
 {
     [Test]
     public void Wir_koennen_ein_paar_Zeilen_von_CSV_nach_TabularData_konvertieren()

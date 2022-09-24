@@ -1,4 +1,4 @@
-﻿namespace csvviewer.BL.TabularData;
+﻿namespace csvviewer.BL.Tables;
 
 public class Table
 {
