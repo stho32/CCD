@@ -67,7 +67,7 @@ public class TableDisplay
     private void DisplayPage(int page)
     {
         var firstDataRow = 1;
-        var startIndex = firstDataRow + page * _pageSize;
+        var startIndex = firstDataRow + (page-1) * _pageSize;
 
         for (var i = startIndex; i < startIndex + _pageSize; i++)
         {

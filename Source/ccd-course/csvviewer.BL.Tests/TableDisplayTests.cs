@@ -39,7 +39,7 @@ public class TableDisplayTests
     {
         TabellenanzeigeTestSetup(out var display, out var output, 3);
 
-        display.Display(0);
+        display.Display(1);
 
         string[] result = output.GetResult().Trim().Split(Environment.NewLine);
 
@@ -64,7 +64,7 @@ public class TableDisplayTests
     {
         TabellenanzeigeTestSetup(out var display, out var output, 3);
 
-        display.Display(1);
+        display.Display(2);
 
         string[] result = output.GetResult().Trim().Split(Environment.NewLine);
 
@@ -87,7 +87,7 @@ public class TableDisplayTests
 
         TabellenanzeigeTestSetup(out var display, out var output, 3, table);
 
-        display.Display(0);
+        display.Display(1);
 
         string[] result = output.GetResult().Trim().Split(Environment.NewLine);
 
