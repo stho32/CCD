@@ -15,4 +15,9 @@ public class AutomatableInput : IInput
     {
         return _inputQueue.Dequeue().ToLower();
     }
+
+    public int GetIntBetween(string prompt, int minimumIncluding, int maximumIncluding)
+    {
+        return int.Parse(_inputQueue.Dequeue());
+    }
 }

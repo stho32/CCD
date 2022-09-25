@@ -19,9 +19,16 @@ public class NavigationMenu
         menuItems.Add(new MenuItem("P)revious page", "p", PreviousPage));
         menuItems.Add(new MenuItem("N)ext page", "n", NextPage));
         menuItems.Add(new MenuItem("L)ast page", "l", LastPage));
+        menuItems.Add(new MenuItem("J)ump to page", "j", JumpToPage));
         menuItems.Add(new MenuItem("E)xit", "e", Exit));
 
         _menuItems = new MenuItemCollection(menuItems.ToArray());
+    }
+
+    private void JumpToPage()
+    {
+        var pageNumber = _environment.Input.GetIntBetween($"Please enter the page number you wish to jump to (1..{_maximumPageNumber}): ", 1, _maximumPageNumber);
+        CurrentPage = pageNumber;
     }
 
     public void Exit()

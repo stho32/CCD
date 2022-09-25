@@ -28,7 +28,7 @@ public class NavigationMenuTests
         navigationMenu.Run();
 
         var result = output.GetResult();
-        Assert.AreEqual("F)irst page, P)revious page, N)ext page, L)ast page, E)xit", result);
+        Assert.AreEqual("F)irst page, P)revious page, N)ext page, L)ast page, J)ump to page, E)xit", result);
     }
 
     [Test]
@@ -140,5 +140,18 @@ public class NavigationMenuTests
         navigationMenu.Run();
 
         Assert.AreEqual(1, navigationMenu.CurrentPage);
+    }
+
+    [Test]
+    public void Wir_koennen_Seite_2_direkt_anspringen()
+    {
+        GetTestSetup(out NavigationMenu navigationMenu, out AutomatableInput input, out InMemoryTextOutput output);
+
+        input.SendKeys("j");
+        input.SendKeys("2");
+        input.SendKeys("e");
+        navigationMenu.Run();
+
+        Assert.AreEqual(2, navigationMenu.CurrentPage);
     }
 }

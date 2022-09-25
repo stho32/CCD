@@ -3,4 +3,5 @@
 public interface IInput
 {
     string GetNextKeyPressInLowercase();
+    int GetIntBetween(string prompt, int minimumIncluding, int maximumIncluding);
 }
