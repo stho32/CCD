@@ -1,4 +1,5 @@
-﻿using csvviewer.BL.Tables;
+﻿using csvviewer.BL.Menus;
+using csvviewer.BL.Tables;
 using csvviewer.Interfaces;
 
 namespace csvviewer.BL.Displays;
@@ -7,15 +8,15 @@ public class TableDisplay
 {
     private readonly Table _table;
     private readonly int _pageSize;
-    private readonly IOutput _output;
+    private readonly ExecutionEnvironment _environment;
     private List<int> _maxWidthsPerColumn;
     private bool _isPrepared = false;
 
-    public TableDisplay(Table table, int pageSize, IOutput output)
+    public TableDisplay(Table table, int pageSize, ExecutionEnvironment environment)
     {
         _table = table;
         _pageSize = pageSize;
-        _output = output;
+        _environment = environment;
     }
 
     public int PageCount => CalculatePageCount();
@@ -85,9 +86,9 @@ public class TableDisplay
         {
             var column = columns[i];
             var columnPadded = column.PadRight(_maxWidthsPerColumn[i]);
-            _output.Write(columnPadded + divider);
+            _environment.Output.Write(columnPadded + divider);
         }
-        _output.WriteLine("");
+        _environment.Output.WriteLine("");
     }
 
     private void DisplayHeader()

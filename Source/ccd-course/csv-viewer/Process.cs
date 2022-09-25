@@ -7,16 +7,16 @@ namespace csv_viewer;
 
 public static class Process
 {
-    public static void Run(string[] args, IInput input, IOutput output, IFileSystem filesystem)
+    public static void Run(string[] args, ExecutionEnvironment environment)
     {
-        if (!CommandLineParameters.TryParse(args, output, out var options))
+        if (!CommandLineParameters.TryParse(args, environment, out var options))
             return;
 
-        var content = filesystem.ReadFile(options.Filename);
+        var content = environment.FileSystem.ReadFile(options.Filename);
         var table = content.ToTable(new CsvConverter());
-        var tableDisplay = new TableDisplay(table, options.PageSize, output);
+        var tableDisplay = new TableDisplay(table, options.PageSize, environment);
 
-        var navigationMenu = new NavigationMenu(tableDisplay.PageCount, new ExecutionEnvironment(input, output));
+        var navigationMenu = new NavigationMenu(tableDisplay.PageCount, environment);
         navigationMenu.Run(navigation => tableDisplay.Display(navigation.CurrentPage));
     }
 }

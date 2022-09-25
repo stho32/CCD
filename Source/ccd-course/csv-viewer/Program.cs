@@ -1,8 +1,11 @@
 ﻿using csv_viewer;
+using csvviewer.BL.Menus;
 using csvviewer.Infrastructure;
 
-var textOutput = new TextOutput();
-var fileSystem = new FileSystem();
-var consoleInput = new ConsoleInput();
+var environment = new ExecutionEnvironment(
+    new ConsoleInput(),
+    new TextOutput(),
+    new FileSystem()
+);
 
-Process.Run(args, consoleInput, textOutput, fileSystem);
+Process.Run(args, environment);

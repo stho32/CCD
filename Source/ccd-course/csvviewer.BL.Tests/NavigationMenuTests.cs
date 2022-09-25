@@ -14,7 +14,7 @@ public class NavigationMenuTests
     {
         input = new AutomatableInput();
         output = new InMemoryTextOutput();
-        var environment = new ExecutionEnvironment(input, output);
+        var environment = new ExecutionEnvironment(input, output, null);
 
         navigationMenu = new NavigationMenu(2, environment);
     }

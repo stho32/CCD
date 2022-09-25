@@ -1,4 +1,5 @@
 ﻿using csvviewer.BL.Displays;
+using csvviewer.BL.Menus;
 using csvviewer.BL.Tables;
 using csvviewer.BL.Tests.Mocks;
 using NUnit.Framework;
@@ -31,7 +32,7 @@ public class TableDisplayTests
             testdaten = GetTestTable();
 
         output = new InMemoryTextOutput();
-        display = new TableDisplay(testdaten, pageSize, output);
+        display = new TableDisplay(testdaten, pageSize, new ExecutionEnvironment(null, output, null));
     }
 
     [Test]
