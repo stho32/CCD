@@ -44,12 +44,23 @@ public class TableDisplayTests
 
         string[] result = output.GetResult().Trim().Split(Environment.NewLine);
 
-        Assert.AreEqual(5, result.Length);
         Assert.AreEqual("Hello|World|", result[0]);
         Assert.AreEqual("-----+-----+", result[1]);
         Assert.AreEqual("1    |Eins |", result[2]);
         Assert.AreEqual("2    |Zwei |", result[3]);
         Assert.AreEqual("3    |Drei |", result[4]);
+    }
+
+    [Test]
+    public void Unter_der_Tabelle_steht_welche_Seite_wir_gerade_anzeigen()
+    {
+        TabellenanzeigeTestSetup(out var display, out var output, 3);
+
+        display.Display(1);
+
+        string[] result = output.GetResult().Trim().Split(Environment.NewLine);
+
+        Assert.AreEqual("Page 1 of 2", result[5]);
     }
 
     [Test]
@@ -69,7 +80,6 @@ public class TableDisplayTests
 
         string[] result = output.GetResult().Trim().Split(Environment.NewLine);
 
-        Assert.AreEqual(4, result.Length);
         Assert.AreEqual("Hello|World|", result[0]);
         Assert.AreEqual("-----+-----+", result[1]);
         Assert.AreEqual("4    |Vier |", result[2]);

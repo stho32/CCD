@@ -2,7 +2,6 @@
 using csvviewer.BL.Displays;
 using csvviewer.BL.Menus;
 using csvviewer.BL.Tables;
-using csvviewer.Interfaces;
 
 namespace csv_viewer;
 

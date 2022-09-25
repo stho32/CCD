@@ -78,6 +78,13 @@ public class TableDisplay
             var row = _table.Rows[i];
             DisplayRow(row.Columns);
         }
+
+        DisplayPageNumber(page);
+    }
+
+    private void DisplayPageNumber(int page)
+    {
+        _environment.Output.WriteLine("Page " + page + " of " + PageCount);
     }
 
     private void DisplayRow(string[] columns, string divider = "|")
