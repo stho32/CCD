@@ -1,6 +1,5 @@
 ﻿using csvviewer.BL.CommandLineArgs;
 using csvviewer.BL.Menus;
-using csvviewer.Interfaces;
 
 namespace csv_viewer;
 
