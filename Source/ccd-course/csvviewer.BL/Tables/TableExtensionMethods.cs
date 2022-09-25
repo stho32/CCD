@@ -9,4 +9,26 @@ public static class TableExtensionMethods
 
         return table.Rows[0].Columns.Length;
     }
+
+    public static Table AddNumbersToRows(this Table sourceTable)
+    {
+        var resultingRows = new List<TableRow>();
+
+        var currentLineNumber = 0;
+
+        foreach (var row in sourceTable.Rows)
+        {
+            var columns = new List<string>(row.Columns);
+            if (currentLineNumber == 0)
+                columns.Insert(0, "No.");
+            else
+                columns.Insert(0, currentLineNumber.ToString());
+
+            resultingRows.Add(new TableRow(columns.ToArray()));
+
+            currentLineNumber++;
+        }
+
+        return new Table(resultingRows.ToArray());
+    }
 }
