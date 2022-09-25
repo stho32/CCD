@@ -1,16 +1,16 @@
 ﻿using csvviewer.BL.Menus;
 using csvviewer.BL.Tables;
-using csvviewer.Interfaces;
 
 namespace csvviewer.BL.Displays;
 
 public class TableDisplay
 {
-    private readonly Table _table;
+    private Table _table;
     private readonly int _pageSize;
     private readonly ExecutionEnvironment _environment;
     private List<int> _maxWidthsPerColumn;
     private bool _isPrepared = false;
+    private OrderByDescription? _currentOrderBy;
 
     public TableDisplay(Table table, int pageSize, ExecutionEnvironment environment)
     {
@@ -56,13 +56,24 @@ public class TableDisplay
             _maxWidthsPerColumn.Add(0);
     }
 
-    public void Display(int page)
+    public void Display(int page, OrderByDescription? orderBy = null)
     {
         if (!_isPrepared)
             PrepareDisplay();
 
+        if (orderBy != null && _currentOrderBy != orderBy)
+        {
+            OrderBy(orderBy);
+        }
+
         DisplayHeader();
         DisplayPage(page);
+    }
+
+    private void OrderBy(OrderByDescription? orderByDescription)
+    {
+        _table = _table.SortBy(orderByDescription);
+        _currentOrderBy = orderByDescription;
     }
 
     private void DisplayPage(int page)
@@ -116,3 +127,4 @@ public class TableDisplay
         DisplayRow(columns.ToArray(), "+");
     }
 }
+

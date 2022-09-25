@@ -1,4 +1,5 @@
 ﻿using csvviewer.BL.Menus;
+using csvviewer.BL.Tables;
 using csvviewer.BL.Tests.Mocks;
 using NUnit.Framework;
 
@@ -16,7 +17,7 @@ public class NavigationMenuTests
         output = new InMemoryTextOutput();
         var environment = new ExecutionEnvironment(input, output, null);
 
-        navigationMenu = new NavigationMenu(2, environment);
+        navigationMenu = new NavigationMenu(2, environment, Array.Empty<string>());
     }
 
     [Test]
@@ -28,7 +29,7 @@ public class NavigationMenuTests
         navigationMenu.Run();
 
         var result = output.GetResult();
-        Assert.AreEqual("F)irst page, P)revious page, N)ext page, L)ast page, J)ump to page, E)xit", result);
+        Assert.AreEqual("F)irst page, P)revious page, N)ext page, L)ast page, J)ump to page, S)ort, E)xit", result);
     }
 
     [Test]
@@ -153,5 +154,29 @@ public class NavigationMenuTests
         navigationMenu.Run();
 
         Assert.AreEqual(2, navigationMenu.CurrentPage);
+    }
+
+    [Test]
+    public void Ohne_eine_Auswahl_hat_die_Navigation_keine_Informationen_zur_Sortierung()
+    {
+        GetTestSetup(out NavigationMenu navigationMenu, out AutomatableInput input, out InMemoryTextOutput output);
+        Assert.IsNull(navigationMenu.OrderByDescription);
+    }
+
+    [Test]
+    public void Nach_einer_Auswahl_hat_die_Navigation_Informationen_zur_gewuenschten_Sortierung()
+    {
+        GetTestSetup(out NavigationMenu navigationMenu, out AutomatableInput input, out InMemoryTextOutput output);
+
+        input.SendKeys("s");
+        input.SendKeys("No.");
+        input.SendKeys("i");
+        input.SendKeys("Asc");
+        input.SendKeys("e");
+        navigationMenu.Run();
+
+        Assert.AreEqual("No.", navigationMenu.OrderByDescription.ColumnName);
+        Assert.AreEqual(SortModeEnum.Int, navigationMenu.OrderByDescription.SortMode);
+        Assert.AreEqual(SortDirectionEnum.Ascending, navigationMenu.OrderByDescription.SortDirection);
     }
 }

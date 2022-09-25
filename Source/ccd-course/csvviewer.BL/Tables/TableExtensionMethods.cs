@@ -1,4 +1,8 @@
-﻿namespace csvviewer.BL.Tables;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using csvviewer.BL.Displays;
+
+namespace csvviewer.BL.Tables;
 
 public static class TableExtensionMethods
 {
@@ -30,5 +34,31 @@ public static class TableExtensionMethods
         }
 
         return new Table(resultingRows.ToArray());
+    }
+
+    public static Table SortBy(this Table table, OrderByDescription? orderByDescription)
+    {
+        var headerColumns = new List<string>(table.Rows[0].Columns);
+        var columnIndex = headerColumns.IndexOf(orderByDescription.ColumnName);
+
+        var rows = new List<TableRow>(table.Rows);
+        rows.RemoveAt(0); // Header-Row entfernen vor der Sortierung
+
+        var direction = 1;
+        if (orderByDescription.SortDirection == SortDirectionEnum.Descending)
+            direction = -1;
+
+        switch (orderByDescription.SortMode)
+        {
+            case SortModeEnum.String:
+                rows.Sort((x, y) => direction * string.CompareOrdinal(x.Columns[columnIndex], y.Columns[columnIndex]));
+                break;
+            case SortModeEnum.Int:
+                rows.Sort((x, y) => direction * int.Parse(x.Columns[columnIndex]).CompareTo(int.Parse(y.Columns[columnIndex])));
+                break;
+        }
+
+        rows.Insert(0, table.Rows[0]); // Header-Row nach dem Sortieren wieder einfügen
+        return new Table(rows.ToArray());
     }
 }

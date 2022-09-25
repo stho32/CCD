@@ -17,7 +17,11 @@ public static class Process
         table = table.AddNumbersToRows();
         var tableDisplay = new TableDisplay(table, options.PageSize, environment);
 
-        var navigationMenu = new NavigationMenu(tableDisplay.PageCount, environment);
-        navigationMenu.Run(navigation => tableDisplay.Display(navigation.CurrentPage));
+        var navigationMenu = new NavigationMenu(
+            tableDisplay.PageCount, 
+            environment, 
+            table.Rows[0].Columns);
+
+        navigationMenu.Run(navigation => tableDisplay.Display(navigation.CurrentPage, navigation.OrderByDescription));
     }
 }

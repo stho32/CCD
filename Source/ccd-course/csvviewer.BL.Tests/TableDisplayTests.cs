@@ -52,6 +52,22 @@ public class TableDisplayTests
     }
 
     [Test]
+    public void Sortieren_funktioniert()
+    {
+        TabellenanzeigeTestSetup(out var display, out var output, 3);
+
+        display.Display(1, new OrderByDescription("Hello", SortModeEnum.Int, SortDirectionEnum.Descending));
+
+        string[] result = output.GetResult().Trim().Split(Environment.NewLine);
+
+        Assert.AreEqual("Hello|World|", result[0]);
+        Assert.AreEqual("-----+-----+", result[1]);
+        Assert.AreEqual("5    |Fünf |", result[2]);
+        Assert.AreEqual("4    |Vier |", result[3]);
+        Assert.AreEqual("3    |Drei |", result[4]);
+    }
+
+    [Test]
     public void Unter_der_Tabelle_steht_welche_Seite_wir_gerade_anzeigen()
     {
         TabellenanzeigeTestSetup(out var display, out var output, 3);

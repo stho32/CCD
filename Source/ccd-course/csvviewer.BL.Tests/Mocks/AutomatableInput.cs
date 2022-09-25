@@ -20,4 +20,9 @@ public class AutomatableInput : IInput
     {
         return int.Parse(_inputQueue.Dequeue());
     }
+
+    public string GetElementFromSet(string prompt, string[] options)
+    {
+        return _inputQueue.Dequeue();
+    }
 }

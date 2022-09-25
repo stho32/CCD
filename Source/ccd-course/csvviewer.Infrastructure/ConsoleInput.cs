@@ -35,4 +35,28 @@ public class ConsoleInput : IInput
             return result;
         }
     }
+
+    public string GetElementFromSet(string prompt, string[] options)
+    {
+        var optionsList = new List<string>(options);
+
+        while (true)
+        {
+            Console.Write(prompt);
+            var inputAsString = Console.ReadLine();
+
+            if (optionsList.IndexOf(inputAsString??"") == -1)
+            {
+                Console.WriteLine("Choose one of the following options: ");
+                foreach (var option in options)
+                {
+                    Console.WriteLine("    " + option);
+                }
+                Console.WriteLine("");
+                continue;
+            }
+
+            return inputAsString??"";
+        }
+    }
 }

@@ -1,4 +1,7 @@
-﻿namespace csvviewer.BL.Menus;
+﻿using csvviewer.BL.Displays;
+using csvviewer.BL.Tables;
+
+namespace csvviewer.BL.Menus;
 
 public class NavigationMenu
 {
@@ -6,13 +9,20 @@ public class NavigationMenu
     public int CurrentPage { get; private set; } = 1;
     public bool ExitRequested { get; private set; } = false;
 
+    public OrderByDescription? OrderByDescription { get; private set; }
+
     private readonly ExecutionEnvironment _environment;
+    private readonly string[] _columns;
     private readonly MenuItemCollection _menuItems;
 
-    public NavigationMenu(int maximumPageNumber, ExecutionEnvironment environment)
+    public NavigationMenu(
+        int maximumPageNumber, 
+        ExecutionEnvironment environment,
+        string[] columns)
     {
         _maximumPageNumber = maximumPageNumber;
         _environment = environment;
+        _columns = columns;
 
         var menuItems = new List<MenuItem>();
         menuItems.Add(new MenuItem("F)irst page", "f", FirstPage));
@@ -20,9 +30,31 @@ public class NavigationMenu
         menuItems.Add(new MenuItem("N)ext page", "n", NextPage));
         menuItems.Add(new MenuItem("L)ast page", "l", LastPage));
         menuItems.Add(new MenuItem("J)ump to page", "j", JumpToPage));
+        menuItems.Add(new MenuItem("S)ort", "s", Sort));
         menuItems.Add(new MenuItem("E)xit", "e", Exit));
 
         _menuItems = new MenuItemCollection(menuItems.ToArray());
+
+        OrderByDescription = null;
+    }
+
+    private void Sort()
+    {
+        var columnName = _environment.Input.GetElementFromSet("Please enter column name to sort on:", _columns);
+        var sortMode =
+            _environment.Input.GetElementFromSet("Please select the sort mode ( s = string, i = int ):", new[] { "s", "i" });
+        var sortDirection =
+            _environment.Input.GetElementFromSet("Please select the sort direction (Asc/Desc):", new[] { "Asc", "Desc" });
+
+        var sortModeEnum = SortModeEnum.String;
+        if (sortMode == "i")
+            sortModeEnum = SortModeEnum.Int;
+
+        var sortDirectionEnum = SortDirectionEnum.Descending;
+        if (sortDirection == "Asc")
+            sortDirectionEnum = SortDirectionEnum.Ascending;
+
+        OrderByDescription = new OrderByDescription(columnName, sortModeEnum, sortDirectionEnum);
     }
 
     private void JumpToPage()
