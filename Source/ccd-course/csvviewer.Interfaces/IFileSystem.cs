@@ -2,6 +2,6 @@
 {
     public interface IFileSystem
     {
-        string[] ReadFile(string filename);
+        ResultOrError<string[]?> ReadFile(string filename);
     }
 }

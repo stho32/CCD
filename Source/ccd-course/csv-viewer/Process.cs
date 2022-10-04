@@ -3,6 +3,7 @@ using csvviewer.BL.Csv;
 using csvviewer.BL.Displays;
 using csvviewer.BL.Menus;
 using csvviewer.BL.Tables;
+using csvviewer.Interfaces;
 
 namespace csv_viewer;
 
@@ -17,9 +18,16 @@ public static class Process
             return;
         }
 
-        var content = environment.FileSystem.ReadFile(parseResult.Options.Filename);
-        var table = content.ToTable(new CsvConverter());
+        var readFileResult = environment.FileSystem.ReadFile(parseResult.Options.Filename);
+        if (!readFileResult.Success || readFileResult.Result == null)
+        {
+            environment.Output.WriteLine("Error: " + readFileResult.ErrorMessage);
+            return;
+        }
+
+        var table = readFileResult.Result.ToTable(new CsvConverter());
         table = table.AddNumbersToRows();
+        
         var tableDisplay = new TableDisplay(table, parseResult.Options.PageSize, environment);
 
         var navigationMenu = new NavigationMenu(
