@@ -8,4 +8,13 @@ var environment = new ExecutionEnvironment(
     new FileSystem()
 );
 
-Process.Run(args, environment);
+try
+{
+    Process.Run(args, environment);
+}
+catch (Exception ex)
+{
+    Console.WriteLine("An error occured!");
+    Console.WriteLine("");
+    Console.WriteLine(ex.ToString());
+}
