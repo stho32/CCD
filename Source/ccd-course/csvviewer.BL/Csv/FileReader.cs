@@ -26,9 +26,9 @@ public static class StringArrayExtensions
             rows.Add(new TableRow(split));
         }
 
-        var tabularDataFile = new Table(rows.ToArray());
+        var table = new Table(rows.ToArray());
 
-        return tabularDataFile;
+        return table;
     }
 }
 
